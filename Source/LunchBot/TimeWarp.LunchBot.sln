@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LunchBot.Tests", "Tests\Lun
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E3982F33-88EF-4375-89D1-47A9589D07EA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBotSample", "..\DiscordBotSample\DiscordBotSample.csproj", "{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,18 @@ Global
 		{54906E27-45D8-42A1-9D3D-43A742423EB7}.Release|x64.Build.0 = Release|Any CPU
 		{54906E27-45D8-42A1-9D3D-43A742423EB7}.Release|x86.ActiveCfg = Release|Any CPU
 		{54906E27-45D8-42A1-9D3D-43A742423EB7}.Release|x86.Build.0 = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|x64.Build.0 = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Debug|x86.Build.0 = Debug|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|x64.ActiveCfg = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|x64.Build.0 = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|x86.ActiveCfg = Release|Any CPU
+		{3F1B4C1B-5293-4ED9-89CD-07DA84346F66}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

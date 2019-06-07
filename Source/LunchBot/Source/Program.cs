@@ -1,5 +1,7 @@
 ﻿namespace LunchBot
 {
+  using Discord;
+  using System;
   using System.CommandLine;
   using System.CommandLine.Builder;
   using System.CommandLine.Invocation;
@@ -12,6 +14,12 @@
       Parser parser = new TimeWarpCommandLineBuilder().Build();
 
       return await parser.InvokeAsync(aArgumentArray);
+    }
+
+    private Task Log(LogMessage msg)
+    {
+      Console.WriteLine(msg.ToString());
+      return Task.CompletedTask;
     }
   }
 }
