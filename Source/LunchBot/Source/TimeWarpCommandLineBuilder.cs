@@ -28,7 +28,6 @@
 
       ServiceProvider = ServiceCollection.BuildServiceProvider();
 
-      //string xmlPath = Assembly.GetEntryAssembly().Location.Replace(".dll", ".xml");
       string xmlPath = Assembly.GetAssembly(typeof(TimeWarpCommandLineBuilder)).Location.Replace(".dll", ".xml");
       XmlDocReader = new XmlDocReader(xmlPath);
 
