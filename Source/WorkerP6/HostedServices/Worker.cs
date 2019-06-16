@@ -10,7 +10,7 @@ namespace WorkerP6.HostedServices
   using Microsoft.Extensions.Logging;
   using System.CommandLine.Invocation;
 
-  public class Worker : BackgroundService
+  internal class Worker : BackgroundService
   {
     private readonly ILogger<Worker> Logger;
     private readonly Parser Parser;

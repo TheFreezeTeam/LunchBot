@@ -31,11 +31,14 @@ namespace WorkerP6
           Parser parser = new TimeWarpCommandLineBuilder(aServices).Build();
           aServices.AddSingleton<MyService>();
           aServices.AddSingleton(parser);
-          aServices.AddHostedService<Worker>();
-          aServices.AddHostedService<TimedHostedService>();
+          //aServices.AddHostedService<Worker>();
+          //aServices.AddHostedService<TimedHostedService>();
+          aServices.AddHostedService<CommandLineHostedService>();
         });
     }
 
+
+    // The source for CreateDefaultBuilder for review
     public static IHostBuilder CreateDefaultBuilder(string[] args)
     {
       var builder = new HostBuilder();
