@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>dotnet-WorkerP6-6AC6BD3F-0018-4EA9-88FA-ECC324240E3E</UserSecretsId>
+    <LangVersion>preview</LangVersion>
+    <DocumentationFile>..\bin\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-preview6.19304.6" />
+    <PackageReference Include="System.CommandLine.Experimental" Version="0.2.0-alpha.19174.3" />
+  </ItemGroup>
+</Project>
