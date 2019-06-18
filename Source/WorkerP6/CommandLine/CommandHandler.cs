@@ -1,10 +1,12 @@
 ﻿namespace WorkerP6.CommandLine
 {
+  using MediatR;
   using System;
+  using System.Collections.Generic;
   using System.CommandLine;
   using System.CommandLine.Invocation;
+  using System.Reflection;
   using System.Threading.Tasks;
-  using MediatR;
 
   internal class MediatorCommandHandler : ICommandHandler
   {
@@ -18,15 +20,19 @@
       Mediator = aMediator;
     }
 
+    //https://stackoverflow.com/questions/1089123/setting-a-property-by-reflection-with-a-string-value
     public async Task<int> InvokeAsync(InvocationContext aInvocationContext)
     {
       try
       {
+        ParseResult parseResult = aInvocationContext.ParseResult;
         var request = (IRequest)Activator.CreateInstance(Type);
-        foreach (SymbolResult symbolResult in aInvocationContext.ParseResult.CommandResult.Children)
+        foreach (SymbolResult symbolResult in parseResult.CommandResult.Children)
         {
-          var result = (SuccessfulArgumentResult<object>)symbolResult.ArgumentResult;
-          Type.GetProperty(symbolResult.Name).SetValue(request, result.Value); // "Haa",9,7,"Ha"
+          var optionResult = symbolResult as OptionResult;
+          PropertyInfo propertyInfo = Type.GetProperty(symbolResult.Name);
+          object result = parseResult.FindResultFor(optionResult.Option).GetValueOrDefault();
+          propertyInfo.SetValue(request, result);
         }
 
         await Mediator.Send(request);

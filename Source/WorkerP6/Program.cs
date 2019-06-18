@@ -1,10 +1,8 @@
 namespace WorkerP6
 {
   using System;
-  using System.Collections.Generic;
   using System.CommandLine;
   using System.IO;
-  using System.Linq;
   using System.Reflection;
   using System.Threading.Tasks;
   using Microsoft.Extensions.Configuration;
@@ -13,24 +11,27 @@ namespace WorkerP6
   using Microsoft.Extensions.Logging;
   using WorkerP6.CommandLine;
   using WorkerP6.HostedServices;
+  using WorkerP6.HostedServices.CommandLine;
   using WorkerP6.Services;
 
-  public class Program
+  internal class Program
   {
-    public static async Task Main(string[] aArgumentArray)
+    internal static async Task Main(string[] aArgumentArray)
     {
       IHostBuilder hostBuilder = CreateHostBuilder(aArgumentArray);
       await hostBuilder.RunConsoleAsync();
     }
 
-    public static IHostBuilder CreateHostBuilder(string[] aArgumentArray)
+    internal static IHostBuilder CreateHostBuilder(string[] aArgumentArray)
     {
       return Host.CreateDefaultBuilder(aArgumentArray)
         .ConfigureServices((aHostBuilderContext, aServices) =>
         {
-          Parser parser = new TimeWarpCommandLineBuilder(aServices).Build();
+          var timeWarpCommandLineBuilder = new TimeWarpCommandLineBuilder(aServices);
+          Parser parser = timeWarpCommandLineBuilder.Build();
           aServices.AddSingleton<MyService>();
           aServices.AddSingleton(parser);
+          aServices.AddSingleton<IAutoCompleteHandler, AutoCompleteHandler>();
           //aServices.AddHostedService<Worker>();
           //aServices.AddHostedService<TimedHostedService>();
           aServices.AddHostedService<CommandLineHostedService>();
@@ -39,7 +40,7 @@ namespace WorkerP6
 
 
     // The source for CreateDefaultBuilder for review
-    public static IHostBuilder CreateDefaultBuilder(string[] args)
+    internal static IHostBuilder CreateDefaultBuilder(string[] args)
     {
       var builder = new HostBuilder();
 

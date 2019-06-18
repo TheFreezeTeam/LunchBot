@@ -32,7 +32,7 @@ namespace WorkerP6.HostedServices
         Logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
         string[] args = { "--help"};
         _ = await Parser.InvokeAsync(args);
-        args = new string[] { "SampleCommand","--Parameter1","Bob", "--Parameter2", "2","--Parameter3","6"};
+        args = new string[] { "Sample","--Parameter1","Bob", "--Parameter2", "2","--Parameter3","6"};
         _ = await Parser.InvokeAsync(args);
         await Task.Delay(3000, aCancellationToken);
       }

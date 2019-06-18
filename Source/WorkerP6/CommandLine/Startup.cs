@@ -6,7 +6,7 @@
   using MediatR.Pipeline;
   using Microsoft.Extensions.DependencyInjection;
   using WorkerP6.CommandLine.Behaviors;
-  using WorkerP6.CommandLine.Commands.SampleCommand;
+  using WorkerP6.CommandLine.Commands.Sample;
 
   internal class Startup
   {
@@ -27,7 +27,7 @@
     public void ConfigureServices(IServiceCollection aServiceCollection)
     {
       aServiceCollection.AddScoped(typeof(IRequestPreProcessor<>), typeof(ValidationBehavior<>));
-      aServiceCollection.AddScoped(typeof(IValidator<SampleCommandRequest>), typeof(SampleCommandValidator));
+      aServiceCollection.AddScoped(typeof(IValidator<SampleRequest>), typeof(SampleValidator));
       aServiceCollection.AddLogging();
     }
   }

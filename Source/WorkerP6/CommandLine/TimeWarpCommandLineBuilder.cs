@@ -62,18 +62,23 @@
       var command = new Command
       (
         name: aType.Name.Replace("Request", ""),
-        description: XmlDocReader.GetDescriptionForType(aType),
-        handler: new MediatorCommandHandler(aType, ServiceProvider.GetService<IMediator>())
-      );
+        description: XmlDocReader.GetDescriptionForType(aType)
+      )
+      {
+        Handler = new MediatorCommandHandler(aType, ServiceProvider.GetService<IMediator>())
+      };
 
       // Add command Options from properties
       foreach (PropertyInfo propertyInfo in aType.GetProperties())
       {
         var option = new Option(
           alias: $"--{propertyInfo.Name}",
-          description: XmlDocReader.GetDescriptionForPropertyInfo(propertyInfo),
-          argument: CreateGenericArgument(propertyInfo.PropertyType),
-          isHidden: false);
+          description: XmlDocReader.GetDescriptionForPropertyInfo(propertyInfo))
+        {
+          Argument = CreateGenericArgument(propertyInfo.PropertyType),
+          IsHidden = false
+          
+        };
         command.AddOption(option);
       }
 
@@ -81,7 +86,7 @@
     }
 
     private Argument CreateGenericArgument(Type aPropertyType)
-    {
+     {
       Type argumentType = typeof(Argument<>);
       Type genericArgumentType = argumentType.MakeGenericType(aPropertyType);
       return Activator.CreateInstance(genericArgumentType) as Argument;

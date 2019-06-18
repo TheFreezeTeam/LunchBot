@@ -12,6 +12,11 @@
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-preview6.19304.6" />
-    <PackageReference Include="System.CommandLine.Experimental" Version="0.2.0-alpha.19174.3" />
+    <PackageReference Include="ReadLine" Version="2.0.1" />
+    <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19315.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CommandLine\Commands\Exit\" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
-﻿namespace WorkerP6.CommandLine.Commands.SampleCommand
+﻿namespace WorkerP6.CommandLine.Commands.Sample
 {
   using MediatR;
 
   /// <summary>
   /// Sample Command.
   /// </summary>
-  public class SampleCommandRequest : IRequest
+  public class SampleRequest : IRequest
   {
 
     /// <summary>
