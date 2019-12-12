@@ -3,14 +3,16 @@ using System;
 using DiscordBotSample.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiscordBotSample.Data.Migrations
 {
     [DbContext(typeof(LunchBotDbContext))]
-    partial class LunchBotDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190612101957_AddIsEnableOnPerson")]
+    partial class AddIsEnableOnPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

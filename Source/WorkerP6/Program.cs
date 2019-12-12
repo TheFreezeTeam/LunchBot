@@ -1,14 +1,14 @@
 namespace WorkerP6
 {
+  using Microsoft.Extensions.Configuration;
+  using Microsoft.Extensions.DependencyInjection;
+  using Microsoft.Extensions.Hosting;
+  using Microsoft.Extensions.Logging;
   using System;
   using System.CommandLine;
   using System.IO;
   using System.Reflection;
   using System.Threading.Tasks;
-  using Microsoft.Extensions.Configuration;
-  using Microsoft.Extensions.DependencyInjection;
-  using Microsoft.Extensions.Hosting;
-  using Microsoft.Extensions.Logging;
   using WorkerP6.CommandLine;
   using WorkerP6.HostedServices;
   using WorkerP6.HostedServices.CommandLine;
@@ -16,29 +16,6 @@ namespace WorkerP6
 
   internal class Program
   {
-    internal static async Task Main(string[] aArgumentArray)
-    {
-      IHostBuilder hostBuilder = CreateHostBuilder(aArgumentArray);
-      await hostBuilder.RunConsoleAsync();
-    }
-
-    internal static IHostBuilder CreateHostBuilder(string[] aArgumentArray)
-    {
-      return Host.CreateDefaultBuilder(aArgumentArray)
-        .ConfigureServices((aHostBuilderContext, aServices) =>
-        {
-          var timeWarpCommandLineBuilder = new TimeWarpCommandLineBuilder(aServices);
-          Parser parser = timeWarpCommandLineBuilder.Build();
-          aServices.AddSingleton<MyService>();
-          aServices.AddSingleton(parser);
-          aServices.AddSingleton<IAutoCompleteHandler, AutoCompleteHandler>();
-          //aServices.AddHostedService<Worker>();
-          //aServices.AddHostedService<TimedHostedService>();
-          aServices.AddHostedService<CommandLineHostedService>();
-        });
-    }
-
-
     // The source for CreateDefaultBuilder for review
     internal static IHostBuilder CreateDefaultBuilder(string[] args)
     {
@@ -54,11 +31,11 @@ namespace WorkerP6
         }
       });
 
-      builder.ConfigureAppConfiguration((hostingContext, config) =>
+      builder.ConfigureAppConfiguration((aHostBuilderContext, aConfigurationBuilder) =>
       {
-        var env = hostingContext.HostingEnvironment;
+        IHostEnvironment env = aHostBuilderContext.HostingEnvironment;
 
-        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        aConfigurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
         if (env.IsDevelopment() && !string.IsNullOrEmpty(env.ApplicationName))
@@ -66,15 +43,15 @@ namespace WorkerP6
           var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
           if (appAssembly != null)
           {
-            config.AddUserSecrets(appAssembly, optional: true);
+            aConfigurationBuilder.AddUserSecrets(appAssembly, optional: true);
           }
         }
 
-        config.AddEnvironmentVariables();
+        aConfigurationBuilder.AddEnvironmentVariables();
 
         if (args != null)
         {
-          config.AddCommandLine(args);
+          aConfigurationBuilder.AddCommandLine(args);
         }
       })
       .ConfigureLogging((hostingContext, logging) =>
@@ -90,6 +67,28 @@ namespace WorkerP6
       });
 
       return builder;
+    }
+
+    internal static IHostBuilder CreateHostBuilder(string[] aArgumentArray)
+    {
+      return Host.CreateDefaultBuilder(aArgumentArray)
+        .ConfigureServices((aHostBuilderContext, aServiceCollection) =>
+        {
+          var timeWarpCommandLineBuilder = new TimeWarpCommandLineBuilder(aServiceCollection);
+          Parser parser = timeWarpCommandLineBuilder.Build();
+          aServiceCollection.AddSingleton<MyService>();
+          aServiceCollection.AddSingleton(parser);
+          aServiceCollection.AddSingleton<IAutoCompleteHandler, AutoCompleteHandler>();
+          //aServices.AddHostedService<Worker>();
+          //aServices.AddHostedService<TimedHostedService>();
+          aServiceCollection.AddHostedService<CommandLineHostedService>();
+        });
+    }
+
+    internal static async Task Main(string[] aArgumentArray)
+    {
+      IHostBuilder hostBuilder = CreateHostBuilder(aArgumentArray);
+      await hostBuilder.RunConsoleAsync();
     }
   }
 }

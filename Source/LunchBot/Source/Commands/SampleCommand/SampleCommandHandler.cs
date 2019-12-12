@@ -1,4 +1,4 @@
-﻿namespace LunchBot.Commands.SampleCommand
+﻿namespace LunchBot.Commands.Sample
 {
   using System;
   using System.Threading;
@@ -6,9 +6,9 @@
   using MediatR;
 
   internal class SampleCommandHandler
-    : IRequestHandler<SampleCommandRequest>
+    : IRequestHandler<SampleRequest>
   {
-    public Task<Unit> Handle(SampleCommandRequest aSampleCommandRequest, CancellationToken aCancellationToken)
+    public Task<Unit> Handle(SampleRequest aSampleCommandRequest, CancellationToken aCancellationToken)
     {
       Console.WriteLine($"Parameter1:{aSampleCommandRequest.Parameter1}");
       Console.WriteLine($"Parameter1:{aSampleCommandRequest.Parameter2}");

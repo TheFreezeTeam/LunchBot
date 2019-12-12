@@ -15,11 +15,5 @@
 
       return await parser.InvokeAsync(aArgumentArray);
     }
-
-    private Task Log(LogMessage msg)
-    {
-      Console.WriteLine(msg.ToString());
-      return Task.CompletedTask;
-    }
   }
 }
